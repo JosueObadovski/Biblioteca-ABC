@@ -1,49 +1,74 @@
 package BIBLIOTECAABC.Service;
 
-import BIBLIOTECAABC.Entity.Biblioteca;
-import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import BIBLIOTECAABC.Entity.Biblioteca;
+
 @Service
 public class BibliotecaService {
-    private List<Biblioteca> bibliotecas = new ArrayList<>();
+    List<Biblioteca> lista = new ArrayList<>();
 
     public String save(Biblioteca biblioteca) {
-        bibliotecas.add(biblioteca);
+        lista.add(biblioteca);
         return biblioteca.getNome() + " salva com sucesso";
     }
 
-    public String update(int id, Biblioteca novaBiblioteca) {
-        for (Biblioteca biblioteca : bibliotecas) {
-            if (biblioteca.getId() == id) {
-                bibliotecas.set(bibliotecas.indexOf(biblioteca), novaBiblioteca);
-                return novaBiblioteca.getNome() + " atualizada com sucesso";
+    public String update(long id, Biblioteca biblioteca) {
+        lista = this.listAll();
+
+        if (lista != null) {
+            for (int i = 0; i < lista.size(); i++) {
+                if (lista.get(i).getId() == id) {
+                    lista.set(i, biblioteca);
+                    return biblioteca.getNome() + " atualizada com sucesso";
+                }
             }
         }
+
         return "Biblioteca não encontrada para atualizar";
     }
 
     public List<Biblioteca> listAll() {
-        return bibliotecas;
+    	
+    	Biblioteca biblioteca = new Biblioteca(1, "Biblioteca Central", "(11) 1234-5678");
+    	Biblioteca biblioteca2 = new Biblioteca(2, "Biblioteca Municipal", "(21) 9876-5432");
+    	Biblioteca biblioteca3 = new Biblioteca(3, "Biblioteca Pública", "(31) 5555-5555");
+    	
+    	lista.add(biblioteca);
+    	lista.add(biblioteca2);
+    	lista.add(biblioteca3);
+    	
+    	return lista;
     }
 
-    public Biblioteca findById(int idBiblioteca) {
-        for (Biblioteca biblioteca : bibliotecas) {
-            if (biblioteca.getId() == idBiblioteca) {
-                return biblioteca;
-            }
-        }
-        return null;
+    public Biblioteca findById(long idBiblioteca) {
+        lista = this.listAll();
+
+        if (lista != null) 
+        	for(int i=0; i<lista.size(); i++) {
+				if(lista.get(i).getId() == idBiblioteca) {
+					return lista.get(i);
+				}
+			}
+        
+		return null;
     }
 
-    public String delete(int idBiblioteca) {
-        for (Biblioteca biblioteca : bibliotecas) {
-            if (biblioteca.getId() == idBiblioteca) {
-                bibliotecas.remove(biblioteca);
-                return "Deletada com sucesso";
+    public String delete(long idBiblioteca) {
+        lista = this.listAll();
+
+        if (lista != null) {
+            for (int i = 0; i < lista.size(); i++) {
+                if (lista.get(i).getId() == idBiblioteca) {
+                	lista.remove(lista.get(i));
+                    return "Deletada com sucesso";
+                }
             }
         }
+
         return "Não encontrada para deletar";
     }
 }

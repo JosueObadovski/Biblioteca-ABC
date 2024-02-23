@@ -1,14 +1,21 @@
 package BIBLIOTECAABC.Controller;
 
-import BIBLIOTECAABC.Entity.Autor;
-import BIBLIOTECAABC.Service.AutorService;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import BIBLIOTECAABC.Entity.Autor;
+import BIBLIOTECAABC.Service.AutorService;
 
 @RestController
 @RequestMapping("/api/autor")
@@ -21,9 +28,9 @@ public class AutorController {
     public ResponseEntity<String> save(@RequestBody Autor autor) {
         try {
             String mensagem = autorService.save(autor);
-            return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
+            return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Ocorreu um erro ao salvar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Ocorreu um erro ao salvar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -31,43 +38,39 @@ public class AutorController {
     public ResponseEntity<String> update(@RequestBody Autor autor, @PathVariable int id) {
         try {
             String mensagem = autorService.update(id, autor);
-            return new ResponseEntity<>(mensagem, HttpStatus.OK);
+            return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Ocorreu um erro ao atualizar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Ocorreu um erro ao atualizar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/listAll")
     public ResponseEntity<List<Autor>> listAll() {
         try {
-            List<Autor> todosAutores = autorService.listAll();
-            return new ResponseEntity<>(todosAutores, HttpStatus.OK);
+            List<Autor> lista = autorService.listAll();
+            return new ResponseEntity<>(lista, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<Autor> findById(@PathVariable int id) {
+    public ResponseEntity<Autor> findById(@PathVariable long idAutor) {
         try {
-            Autor autor = autorService.findById(id);
-            if (autor != null) {
-                return new ResponseEntity<>(autor, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            Autor autor = autorService.findById(idAutor);
+            return new ResponseEntity<>(autor, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id) {
+    public ResponseEntity<String> delete(@PathVariable long id) {
         try {
             String mensagem = autorService.delete(id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Ocorreu um erro ao deletar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Ocorreu um erro ao deletar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
