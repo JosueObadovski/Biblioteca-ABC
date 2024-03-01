@@ -54,20 +54,20 @@ public class BibliotecaController {
         }
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/findById/{idBiblioteca}")
     public ResponseEntity<Biblioteca> findById(@PathVariable long idBiblioteca) {
         try {
-            Biblioteca biblioteca = bibliotecaService.findById(idBiblioteca);
+            Biblioteca biblioteca = this.bibliotecaService.findById(idBiblioteca);
             return new ResponseEntity<>(biblioteca, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    @DeleteMapping("/delete/{idBiblioteca}")
+    public ResponseEntity<String> delete(@PathVariable long idBiblioteca) {
         try {
-            String mensagem = bibliotecaService.delete(id);
+            String mensagem = this.bibliotecaService.delete(idBiblioteca);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao deletar a biblioteca: " + e.getMessage(), HttpStatus.BAD_REQUEST);

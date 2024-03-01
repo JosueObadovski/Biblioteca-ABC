@@ -54,20 +54,20 @@ public class LivroController {
         }
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/findById/{idLivro}")
     public ResponseEntity<Livro> findById(@PathVariable long idLivro) {
         try {
-            Livro livro = livroService.findById(idLivro);
+            Livro livro = this.livroService.findById(idLivro);
             return new ResponseEntity<>(livro, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    @DeleteMapping("/delete/{idLivro}")
+    public ResponseEntity<String> delete(@PathVariable long idLivro) {
         try {
-            String mensagem = livroService.delete(id);
+            String mensagem = this.livroService.delete(idLivro);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao deletar o livro: " + e.getMessage(), HttpStatus.BAD_REQUEST);

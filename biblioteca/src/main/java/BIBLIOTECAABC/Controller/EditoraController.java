@@ -54,20 +54,20 @@ public class EditoraController {
         }
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/findById/{idEditora}")
     public ResponseEntity<Editora> findById(@PathVariable long idEditora) {
         try {
-            Editora editora = editoraService.findById(idEditora);
+            Editora editora = this.editoraService.findById(idEditora);
             return new ResponseEntity<>(editora, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    @DeleteMapping("/delete/{idEditora}")
+    public ResponseEntity<String> delete(@PathVariable long idEditora) {
         try {
-            String mensagem = editoraService.delete(id);
+            String mensagem = this.editoraService.delete(idEditora);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao deletar a editora: " + e.getMessage(), HttpStatus.BAD_REQUEST);

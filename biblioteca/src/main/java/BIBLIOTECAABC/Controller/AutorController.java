@@ -54,20 +54,20 @@ public class AutorController {
         }
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/findById/{idAutor}")
     public ResponseEntity<Autor> findById(@PathVariable long idAutor) {
         try {
-            Autor autor = autorService.findById(idAutor);
+            Autor autor = this.autorService.findById(idAutor);
             return new ResponseEntity<>(autor, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    @DeleteMapping("/delete/{idAutor}")
+    public ResponseEntity<String> delete(@PathVariable long idAutor) {
         try {
-            String mensagem = autorService.delete(id);
+            String mensagem = this.autorService.delete(idAutor);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao deletar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
