@@ -27,7 +27,7 @@ public class AutorController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Autor autor) {
         try {
-            String mensagem = autorService.save(autor);
+            String mensagem = this.autorService.save(autor);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao salvar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -37,7 +37,7 @@ public class AutorController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@RequestBody Autor autor, @PathVariable int id) {
         try {
-            String mensagem = autorService.update(id, autor);
+            String mensagem = this.autorService.update(id, autor);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao atualizar o autor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -47,7 +47,7 @@ public class AutorController {
     @GetMapping("/listAll")
     public ResponseEntity<List<Autor>> listAll() {
         try {
-            List<Autor> lista = autorService.listAll();
+            List<Autor> lista = this.autorService.listAll();
             return new ResponseEntity<>(lista, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -27,7 +27,7 @@ public class BibliotecaController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Biblioteca biblioteca) {
         try {
-            String mensagem = bibliotecaService.save(biblioteca);
+            String mensagem = this.bibliotecaService.save(biblioteca);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao salvar a biblioteca: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -37,7 +37,7 @@ public class BibliotecaController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@RequestBody Biblioteca biblioteca, @PathVariable int id) {
         try {
-            String mensagem = bibliotecaService.update(id, biblioteca);
+            String mensagem = this.bibliotecaService.update(id, biblioteca);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao atualizar a biblioteca: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -47,7 +47,7 @@ public class BibliotecaController {
     @GetMapping("/listAll")
     public ResponseEntity<List<Biblioteca>> listAll() {
         try {
-            List<Biblioteca> lista = bibliotecaService.listAll();
+            List<Biblioteca> lista = this.bibliotecaService.listAll();
             return new ResponseEntity<>(lista, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

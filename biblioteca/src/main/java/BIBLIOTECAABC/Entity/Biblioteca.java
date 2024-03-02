@@ -2,6 +2,7 @@ package BIBLIOTECAABC.Entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,6 @@ public class Biblioteca {
     @NotNull(message = "O telefone não pode ser nulo.")
     private String telefone;
 
-    @OneToMany(mappedBy = "biblioteca")
+    @OneToMany(mappedBy = "biblioteca", cascade = CascadeType.ALL)
     private List<Livro> livros;
 }

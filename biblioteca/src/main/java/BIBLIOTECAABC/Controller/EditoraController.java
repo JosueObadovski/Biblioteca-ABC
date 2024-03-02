@@ -27,7 +27,7 @@ public class EditoraController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Editora editora) {
         try {
-            String mensagem = editoraService.save(editora);
+            String mensagem = this.editoraService.save(editora);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao salvar a editora: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -37,7 +37,7 @@ public class EditoraController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@RequestBody Editora editora, @PathVariable int id) {
         try {
-            String mensagem = editoraService.update(id, editora);
+            String mensagem = this.editoraService.update(id, editora);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao atualizar a editora: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -47,7 +47,7 @@ public class EditoraController {
     @GetMapping("/listAll")
     public ResponseEntity<List<Editora>> listAll() {
         try {
-            List<Editora> lista = editoraService.listAll();
+            List<Editora> lista = this.editoraService.listAll();
             return new ResponseEntity<>(lista, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -27,7 +27,7 @@ public class LivroController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Livro livro) {
         try {
-            String mensagem = livroService.save(livro);
+            String mensagem = this.livroService.save(livro);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao salvar o livro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -37,7 +37,7 @@ public class LivroController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@RequestBody Livro livro, @PathVariable int id) {
         try {
-            String mensagem = livroService.update(id, livro);
+            String mensagem = this.livroService.update(id, livro);
             return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Ocorreu um erro ao atualizar o livro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -47,7 +47,7 @@ public class LivroController {
     @GetMapping("/listAll")
     public ResponseEntity<List<Livro>> listAll() {
         try {
-            List<Livro> lista = livroService.listAll();
+            List<Livro> lista = this.livroService.listAll();
             return new ResponseEntity<>(lista, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
